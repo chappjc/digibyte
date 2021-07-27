@@ -21,7 +21,7 @@ Summary:	Peer to Peer Cryptographic Currency
 Group:		Applications/System
 License:	MIT
 URL:		https://digibyte.org/
-Source0:	https://github.com/digibyte/digibyte/releases/download/v%{version}/digibyte-%{version}.tar.gz
+Source0:	https://github.com/DigiByte-Core/digibyte/releases/download/v%{version}/digibyte-%{version}.tar.gz
 Source1:	http://download.oracle.com/berkeley-db/db-%{bdbv}.NC.tar.gz
 
 Source10:	https://raw.githubusercontent.com/digibyte/digibyte/v%{version}/contrib/debian/examples/digibyte.conf

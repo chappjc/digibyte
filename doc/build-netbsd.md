@@ -25,7 +25,7 @@ python27
 
 Download the source code:
 ```
-git clone https://github.com/digibyte/digibyte
+git clone https://github.com/DigiByte-Core/digibyte
 ```
 
 See [dependencies.md](dependencies.md) for a complete overview.

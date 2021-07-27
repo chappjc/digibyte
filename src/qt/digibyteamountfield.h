@@ -22,7 +22,7 @@ class DigiByteAmountField: public QWidget
     Q_OBJECT
 
     // ugly hack: for some unknown reason CAmount (instead of qint64) does not work here as expected
-    // discussion: https://github.com/digibyte/digibyte/pull/5117
+    // discussion: https://github.com/DigiByte-Core/digibyte/pull/5117
     Q_PROPERTY(qint64 value READ value WRITE setValue NOTIFY valueChanged USER true)
 
 public:

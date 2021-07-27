@@ -8,7 +8,7 @@ updated translations.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/digibyte/digibyte/issues>
+  <https://github.com/DigiByte-Core/digibyte/issues>
 
 To receive security and update notifications, please subscribe to:
 
@@ -23,7 +23,7 @@ updates will be released anymore. Without security updates, using a digibyte
 wallet on a XP machine is irresponsible at least.
 
 In addition to that, with 0.12.x there have been varied reports of DigiByte Core
-randomly crashing on Windows XP. It is [not clear](https://github.com/digibyte/digibyte/issues/7681#issuecomment-217439891)
+randomly crashing on Windows XP. It is [not clear](https://github.com/DigiByte-Core/digibyte/issues/7681#issuecomment-217439891)
 what the source of these crashes is, but it is likely that upstream
 libraries such as Qt are no longer being tested on XP.
 
@@ -161,10 +161,10 @@ signaling support for a soft fork.
 
 [Segwit FAQ]: https://digibytecore.org/en/2016/01/26/segwit-benefits/
 [segwit wallet developers guide]: https://digibytecore.org/en/segwit_wallet_dev/
-[BIP141]: https://github.com/digibyte/bips/blob/master/bip-0141.mediawiki
-[BIP143]: https://github.com/digibyte/bips/blob/master/bip-0143.mediawiki
-[BIP144]: https://github.com/digibyte/bips/blob/master/bip-0144.mediawiki
-[BIP145]: https://github.com/digibyte/bips/blob/master/bip-0145.mediawiki
+[BIP141]: https://github.com/DigiByte-Core/bips/blob/master/bip-0141.mediawiki
+[BIP143]: https://github.com/DigiByte-Core/bips/blob/master/bip-0143.mediawiki
+[BIP144]: https://github.com/DigiByte-Core/bips/blob/master/bip-0144.mediawiki
+[BIP145]: https://github.com/DigiByte-Core/bips/blob/master/bip-0145.mediawiki
 [versionbits FAQ]: https://digibytecore.org/en/2016/06/08/version-bits-miners-faq/
 
 
@@ -196,7 +196,7 @@ as segwit.
 
 For more information, please see [BIP147][].
 
-[BIP147]: https://github.com/digibyte/bips/blob/master/bip-0147.mediawiki
+[BIP147]: https://github.com/DigiByte-Core/bips/blob/master/bip-0147.mediawiki
 
 Low-level RPC changes
 ---------------------

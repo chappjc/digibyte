@@ -7,7 +7,7 @@ bug fixes.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/digibyte/digibyte/issues>
+  <https://github.com/DigiByte-Core/digibyte/issues>
 
 Upgrading and downgrading
 =========================

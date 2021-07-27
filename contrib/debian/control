@@ -28,7 +28,7 @@ Build-Depends: debhelper,
 Standards-Version: 3.9.2
 Homepage: https://digibytecore.org/
 Vcs-Git: git://github.com/digibyte/digibyte.git
-Vcs-Browser: https://github.com/digibyte/digibyte
+Vcs-Browser: https://github.com/DigiByte-Core/digibyte
 
 Package: digibyted
 Architecture: any

@@ -7,7 +7,7 @@ This release include German, Spanish, Spanish-Castilian, Norwegian and Dutch tra
 https://www.transifex.net/projects/p/digibyte/
 
 Please report bugs using the issue tracker at github:
-https://github.com/digibyte/digibyte/issues
+https://github.com/DigiByte-Core/digibyte/issues
 
 For Ubuntu users, there is a new ppa maintained by Matt Corallo which you can add to your system so that it will automatically keep digibyte up-to-date.  Just type "sudo apt-add-repository ppa:digibyte/digibyte" in your terminal, then install the digibyte-qt package.
 

@@ -43,7 +43,7 @@ Build DigiByte Core
 
 1. Clone the DigiByte Core source code and cd into `digibyte`
 
-        git clone https://github.com/digibyte/digibyte
+        git clone https://github.com/DigiByte-Core/digibyte
         cd digibyte
 
 2.  Build DigiByte Core:
@@ -93,4 +93,4 @@ Notes
 
 * Tested on OS X 10.10 Yosemite through macOS 10.13 High Sierra on 64-bit Intel processors only.
 
-* Building with downloaded Qt binaries is not officially supported. See the notes in [#7714](https://github.com/digibyte/digibyte/issues/7714)
+* Building with downloaded Qt binaries is not officially supported. See the notes in [#7714](https://github.com/DigiByte-Core/digibyte/issues/7714)

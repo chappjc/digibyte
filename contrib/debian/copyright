@@ -2,7 +2,7 @@ Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: DigiByte
 Upstream-Contact: Satoshi Nakamoto <satoshin@gmx.com>
  irc://#digibyte@freenode.net
-Source: https://github.com/digibyte/digibyte
+Source: https://github.com/DigiByte-Core/digibyte
 
 Files: *
 Copyright: 2009-2018, DigiByte Core Developers

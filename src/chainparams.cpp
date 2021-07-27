@@ -88,8 +88,8 @@ public:
         consensus.nPowTargetSpacing = 60 / 4;
 
         /** Current DigiByte 2017 Difficulty Adjustment Code & Block Target. See explanation here: 
-        https://github.com/digibyte/digibyte-old/pull/36 
-        https://github.com/digibyte/digibyte-old/pull/15
+        https://github.com/DigiByte-Core/digibyte-old/pull/36 
+        https://github.com/DigiByte-Core/digibyte-old/pull/15
 
         Difficulty is updated for every algorithm on every block, not just the algorithm that was solved. 
         In particular, the difficulty of one algorithm may decrease when a different algorithm is solved. 
@@ -294,8 +294,8 @@ public:
         consensus.nPowTargetSpacing = 60 / 4;
 
         /** Current DigiByte 2017 Difficulty Adjustment Code & Block Target. See explanation here: 
-        https://github.com/digibyte/digibyte-old/pull/36 
-        https://github.com/digibyte/digibyte-old/pull/15
+        https://github.com/DigiByte-Core/digibyte-old/pull/36 
+        https://github.com/DigiByte-Core/digibyte-old/pull/15
 
         Difficulty is updated for every algorithm on every block, not just the algorithm that was solved. 
         In particular, the difficulty of one algorithm may decrease when a different algorithm is solved. 

@@ -5,7 +5,7 @@ This is a maintenance release to fix a critical bug;
 we urge all users to upgrade.
 
 Please report bugs using the issue tracker at github:
-  https://github.com/digibyte/digibyte/issues
+  https://github.com/DigiByte-Core/digibyte/issues
 
 
 How to Upgrade

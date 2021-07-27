@@ -7,7 +7,7 @@ bug fixes.
 
 Please report bugs using the issue tracker at github:
 
-  https://github.com/digibyte/digibyte/issues
+  https://github.com/DigiByte-Core/digibyte/issues
 
 Upgrading and downgrading
 =========================
@@ -230,7 +230,7 @@ bindings such as [python-digibytelib](https://pypi.python.org/pypi/python-digiby
 alternative node implementations.
 
 This library is called `libdigibyteconsensus.so` (or, `.dll` for Windows).
-Its interface is defined in the C header [digibyteconsensus.h](https://github.com/digibyte/digibyte/blob/0.10/src/script/digibyteconsensus.h).
+Its interface is defined in the C header [digibyteconsensus.h](https://github.com/DigiByte-Core/digibyte/blob/0.10/src/script/digibyteconsensus.h).
 
 In its initial version the API includes two functions:
 

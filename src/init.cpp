@@ -531,7 +531,7 @@ void SetupServerArgs()
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/digibyte/digibyte>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/DigiByte-Core/digibyte>";
     const std::string URL_WEBSITE = "<https://digibyte.io>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2009, COPYRIGHT_YEAR) + " ") + "\n" +

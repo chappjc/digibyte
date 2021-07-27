@@ -79,8 +79,8 @@ if "DIGIBYTED" not in os.environ:
     os.environ["DIGIBYTED"] = BUILDDIR + '/src/digibyted' + EXEEXT
 
 if EXEEXT == ".exe" and "-win" not in opts:
-    # https://github.com/digibyte/digibyte/commit/d52802551752140cf41f0d9a225a43e84404d3e9
-    # https://github.com/digibyte/digibyte/pull/5677#issuecomment-136646964
+    # https://github.com/DigiByte-Core/digibyte/commit/d52802551752140cf41f0d9a225a43e84404d3e9
+    # https://github.com/DigiByte-Core/digibyte/pull/5677#issuecomment-136646964
     print("Win tests currently disabled by default.  Use -win option to enable")
     sys.exit(0)
 

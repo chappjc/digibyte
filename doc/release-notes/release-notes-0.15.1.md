@@ -11,7 +11,7 @@ performance improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/digibyte/digibyte/issues>
+  <https://github.com/DigiByte-Core/digibyte/issues>
 
 To receive security and update notifications, please subscribe to:
 
