@@ -34,7 +34,10 @@ jobs:
         run: make -j3
 
       - name: Make Check
-        run: sudo make check
+        run: make check
+
+      - name: Run Functional Tests
+        run: test/functional/test_runner.py --jobs=3 --timeout-factor=3
 
       - name: Upload Test Suite Log
         uses: actions/upload-artifact@v3
