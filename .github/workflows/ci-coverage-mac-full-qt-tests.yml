@@ -41,7 +41,7 @@ jobs:
         run: make check
 
       - name: Run Functional Tests
-        run: test/functional/test_runner.py --jobs=3 --timeout-factor=4
+        run: test/functional/test_runner.py --jobs=2 --timeout-factor=4
 
       - name: Upload Test Suite Log
         uses: actions/upload-artifact@v3
