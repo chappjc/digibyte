@@ -4,13 +4,14 @@ on: [push]
 
 jobs:
   build:
-    runs-on: macos-11
+    runs-on: macos-10.15
     strategy:
         matrix:
           os: [x86_64-mac]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Brew Install Dependencies
         run: brew install automake pandoc
