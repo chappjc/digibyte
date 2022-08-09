@@ -20,7 +20,6 @@ import urllib.parse
 import collections
 import shlex
 import sys
-from pathlib import Path
 
 from .authproxy import JSONRPCException
 from .descriptors import descsum_create
@@ -232,7 +231,7 @@ class TestNode():
                     timeout=self.rpc_timeout // 2,  # Shorter timeout to allow for one retry in case of ETIMEDOUT
                     coveragedir=self.coverage_dir,
                 )
-                bc = rpc.getblockcount()
+                rpc.getblockcount()
                 # If the call to getblockcount() succeeds then the RPC connection is up
                 if self.version_is_at_least(190000):
                     # getmempoolinfo.loaded is available since commit
@@ -260,7 +259,7 @@ class TestNode():
                     return
                 self.rpc = rpc
                 self.rpc_connected = True
-                self.url = self.rpc.rpc_url
+                self.url = self.rpc.url
                 return
             except JSONRPCException as e:  # Initialization phase
                 # -28 RPC in warmup
@@ -299,21 +298,9 @@ class TestNode():
             time.sleep(1.0 / poll_per_s)
         self._raise_assertion_error("Unable to retrieve cookie credentials after {}s".format(self.rpc_timeout))
 
-    def generate(self, nblocks, maxtries=1000000, algo="scrypt", **kwargs):
+    def generate(self, nblocks, maxtries=1000000):
         self.log.debug("TestNode.generate() dispatches `generate` call to `generatetoaddress`")
-        return self.generatetoaddress(nblocks=nblocks, address=self.get_deterministic_priv_key().address, maxtries=maxtries, algo=algo, **kwargs)
-
-    def generateblock(self, *args, invalid_call, **kwargs):
-        assert not invalid_call
-        return self.__getattr__('generateblock')(*args, **kwargs)
-
-    def generatetoaddress(self, *args, invalid_call, **kwargs):
-        assert not invalid_call
-        return self.__getattr__('generatetoaddress')(*args, **kwargs)
-
-    def generatetodescriptor(self, *args, invalid_call, **kwargs):
-        assert not invalid_call
-        return self.__getattr__('generatetodescriptor')(*args, **kwargs)
+        return self.generatetoaddress(nblocks=nblocks, address=self.get_deterministic_priv_key().address, maxtries=maxtries)
 
     def get_wallet_rpc(self, wallet_name):
         if self.use_cli:
@@ -382,20 +369,13 @@ class TestNode():
     def wait_until_stopped(self, timeout=DIGIBYTED_PROC_WAIT_TIMEOUT):
         wait_until_helper(self.is_node_stopped, timeout=timeout, timeout_factor=self.timeout_factor)
 
-    @property
-    def chain_path(self) -> Path:
-        return Path(self.datadir) / self.chain
-
-    @property
-    def debug_log_path(self) -> Path:
-        return self.chain_path / 'debug.log'
-
     @contextlib.contextmanager
     def assert_debug_log(self, expected_msgs, unexpected_msgs=None, timeout=2):
         if unexpected_msgs is None:
             unexpected_msgs = []
         time_end = time.time() + timeout * self.timeout_factor
-        with open(self.debug_log_path, encoding='utf-8') as dl:
+        debug_log = os.path.join(self.datadir, self.chain, 'debug.log')
+        with open(debug_log, encoding='utf-8') as dl:
             dl.seek(0, 2)
             prev_size = dl.tell()
 
@@ -403,7 +383,7 @@ class TestNode():
 
         while True:
             found = True
-            with open(self.debug_log_path, encoding='utf-8') as dl:
+            with open(debug_log, encoding='utf-8') as dl:
                 dl.seek(prev_size)
                 log = dl.read()
             print_log = " - " + "\n - ".join(log.splitlines())
@@ -579,7 +559,7 @@ class TestNode():
 
     def add_outbound_p2p_connection(self, p2p_conn, *, p2p_idx, connection_type="outbound-full-relay", **kwargs):
         """Add an outbound p2p connection from node. Must be an
-        "outbound-full-relay", "block-relay-only", "addr-fetch" or "feeler" connection.
+        "outbound-full-relay", "block-relay-only" or "addr-fetch" connection.
 
         This method adds the p2p connection to the self.p2ps list and returns
         the connection to the caller.
@@ -591,16 +571,11 @@ class TestNode():
 
         p2p_conn.peer_accept_connection(connect_cb=addconnection_callback, connect_id=p2p_idx + 1, net=self.chain, timeout_factor=self.timeout_factor, **kwargs)()
 
-        if connection_type == "feeler":
-            # feeler connections are closed as soon as the node receives a `version` message
-            p2p_conn.wait_until(lambda: p2p_conn.message_count["version"] == 1, check_connected=False)
-            p2p_conn.wait_until(lambda: not p2p_conn.is_connected, check_connected=False)
-        else:
-            p2p_conn.wait_for_connect()
-            self.p2ps.append(p2p_conn)
+        p2p_conn.wait_for_connect()
+        self.p2ps.append(p2p_conn)
 
-            p2p_conn.wait_for_verack()
-            p2p_conn.sync_with_ping()
+        p2p_conn.wait_for_verack()
+        p2p_conn.sync_with_ping()
 
         return p2p_conn
 
