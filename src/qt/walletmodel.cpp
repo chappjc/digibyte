@@ -7,6 +7,8 @@
 #include <config/digibyte-config.h>
 #endif
 
+#include <boost/bind.hpp>
+
 #include <qt/walletmodel.h>
 
 #include <qt/addresstablemodel.h>

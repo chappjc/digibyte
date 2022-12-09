@@ -7,6 +7,8 @@
 #include <config/digibyte-config.h>
 #endif
 
+#include <boost/bind.hpp>
+
 #include <qt/splashscreen.h>
 
 #include <clientversion.h>
