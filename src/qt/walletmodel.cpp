@@ -3,6 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include <boost/bind.hpp>
+
 #include <qt/walletmodel.h>
 
 #include <qt/addresstablemodel.h>
