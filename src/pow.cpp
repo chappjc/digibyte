@@ -4,6 +4,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include <cstdint>
 #include <pow.h>
 #include <logging.h>
 #include <arith_uint256.h>
@@ -11,6 +12,7 @@
 #include <primitives/block.h>
 #include <uint256.h>
 #include <chainparams.h>
+#include <unordered_map>
 
 inline unsigned int PowLimit(const Consensus::Params& params)
 {
@@ -190,7 +192,7 @@ unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const Consensu
     return bnNew.GetCompact();
 }
 
-unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const Consensus::Params& params, int algo)
+unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const Consensus::Params& params, int algo, blockAgloCache_t& bestAlgoBlocks)
 {
     // find first block in averaging interval
     // Go back by what we want to be nAveragingInterval blocks per algo
@@ -200,11 +202,18 @@ unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const Consensu
         pindexFirst = pindexFirst->pprev;
     }
 
-    const CBlockIndex* pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, params, algo);
-    if (pindexPrevAlgo == nullptr || pindexFirst == nullptr)
-    {
+	if (pindexFirst == nullptr)
+		return InitialDifficulty(params, algo);
+
+	const CBlockIndex* pindexPrevAlgo = nullptr;
+	auto bbA = bestAlgoBlocks.find(algo);
+	if (bbA == bestAlgoBlocks.end())
+		pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, params, algo);
+	else if (bbA->second->nHeight < pindexLast->nHeight)
+		pindexPrevAlgo = bbA->second;
+		
+	if (pindexPrevAlgo == nullptr) // never happened
         return InitialDifficulty(params, algo);
-    }
 
     // Limit adjustment step
     // Use medians to prevent time-warp attacks
@@ -247,10 +256,17 @@ unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const Consensu
         bnNew = UintToArith256(params.powLimit);
     }
 
+	bestAlgoBlocks[algo] = pindexLast; // for next time
+
     return bnNew.GetCompact();
 }
 
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo) {
+	blockAgloCache_t dummyBlockCache;
+	return GetNextWorkRequired(pindexLast, pblock, params, algo, dummyBlockCache);
+}
+
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo, blockAgloCache_t &bestAlgoBlocks)
 {
     // Genesis block
     if (pindexLast == nullptr)
@@ -278,7 +294,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     } else if(pindexLast->nHeight < params.workComputationChangeTarget)
         return GetNextWorkRequiredV3(pindexLast, params, algo);
     else
-        return GetNextWorkRequiredV4(pindexLast, params, algo);
+		return GetNextWorkRequiredV4(pindexLast, params, algo, bestAlgoBlocks);
 }
 
 unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nFirstBlockTime, const Consensus::Params& params)
