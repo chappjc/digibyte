@@ -303,8 +303,22 @@ public:
 
     int GetAlgo() const
     {
-        CBlockHeader block = GetBlockHeader();
-        return block.GetAlgo();
+        switch (nVersion & BLOCK_VERSION_ALGO)
+        {
+            case BLOCK_VERSION_SCRYPT:
+                return ALGO_SCRYPT;
+            case BLOCK_VERSION_SHA256D:
+                return ALGO_SHA256D;
+            case BLOCK_VERSION_GROESTL:
+                return ALGO_GROESTL;
+            case BLOCK_VERSION_SKEIN:
+                return ALGO_SKEIN;
+            case BLOCK_VERSION_QUBIT:
+                return ALGO_QUBIT;
+            case BLOCK_VERSION_ODO:
+                return ALGO_ODO;
+        }
+        return ALGO_UNKNOWN;
     }
     
 
@@ -375,6 +389,7 @@ public:
 };
 
 arith_uint256 GetBlockProof(const CBlockIndex& block);
+arith_uint256 GetBlockProof(const CBlockIndex& block, blockAgloCache_t& blockCache);
 
 /** Return the time it would take to redo the work difference between from and to, assuming the current hashrate corresponds to the difficulty at tip, in seconds. */
 int64_t GetBlockProofEquivalentTime(const CBlockIndex& to, const CBlockIndex& from, const CBlockIndex& tip, const Consensus::Params&);

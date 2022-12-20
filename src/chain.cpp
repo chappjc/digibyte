@@ -160,8 +160,13 @@ arith_uint256 GetBlockProofBase(const CBlockIndex& block)
     return (~bnTarget / (bnTarget + 1)) + 1;
 }
 
+arith_uint256 GetBlockProof(const CBlockIndex& block) {
+    blockAgloCache_t dummyBlockCache;
+    return GetBlockProof(block, dummyBlockCache);
+}
+
 // DGB 6.14.1 GetBlock Proof
-arith_uint256 GetBlockProof(const CBlockIndex& block)
+arith_uint256 GetBlockProof(const CBlockIndex& block, blockAgloCache_t& blockCache)
 {
     CBlockHeader header = block.GetBlockHeader();
     int nHeight = block.nHeight;
@@ -171,6 +176,7 @@ arith_uint256 GetBlockProof(const CBlockIndex& block)
     {
         arith_uint256 bnBlockWork = GetBlockProofBase(block);
         uint32_t nAlgoWork = GetAlgoWorkFactor(nHeight, header.GetAlgo());
+        // LogPrintf("%d < %d, bnBlockWork = %s, nAlgoWork = %d \n", nHeight, params.workComputationChangeTarget, bnBlockWork.ToString(), nAlgoWork);
         return bnBlockWork * nAlgoWork;
     }
     else
@@ -182,7 +188,7 @@ arith_uint256 GetBlockProof(const CBlockIndex& block)
         {
             if (!IsAlgoActive(block.pprev, params, i))
                 continue;
-            unsigned int nBits = GetNextWorkRequired(block.pprev, &header, params, i);
+            unsigned int nBits = GetNextWorkRequired(block.pprev, &header, params, i, blockCache);
             arith_uint256 bnTarget;
             bool fNegative;
             bool fOverflow;
@@ -198,7 +204,7 @@ arith_uint256 GetBlockProof(const CBlockIndex& block)
         arith_uint256 bnRes = (~bnAvgTarget / (bnAvgTarget + 1)) + 1;
         // Scale to roughly match the old work calculation
         bnRes <<= 7;
-
+        // LogPrintf("%d >= %d, bnRes = %s \n", nHeight, params.workComputationChangeTarget, bnRes.ToString());
         return bnRes;
     }
 }
